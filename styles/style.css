@@ -1,0 +1,88 @@
+
+html {
+    font-family: sans-serif;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    height: 90vh;
+
+}
+
+#calculator {
+    margin: 0 auto;
+    padding: 10px 10px 20px 10px;
+    width: min(90vw, 450px);
+
+    display: grid;
+    grid:   'a a'
+            'b c' / 70% 30%;
+
+    background-color: grey;
+    background-image: linear-gradient(35deg,
+        rgb(155, 155, 145),
+        rgb(85, 85, 85) 35%,
+        rgb(85, 85, 85) 65%,
+        rgb(145, 145, 155)
+        );
+    border-radius: 50px;
+
+    box-shadow: inset 3px 3px 5px lightgrey,
+                inset -3px -3px 5px black;
+}
+
+#display {
+    grid-area: a;
+    text-align: right;
+
+    margin: 10px 20px;
+    padding: 0 15px;
+    background-color: white;
+    border-radius: 500px;
+
+    font-size: 24pt;
+    line-height: 0;
+}
+
+#numbers {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#numbers button {
+    width: calc(33.33% - 20px);
+
+    background-color: hsl(240, 50%, 75%);
+}
+
+#operations {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#operations button {
+    width: 75%;
+    background-color: hsl(60, 75%, 75%);
+}
+
+button {
+    cursor: pointer;
+    
+    border: none;
+    border-radius: 20px;
+    margin: 5px;
+
+    color: black;
+    font-size: 20pt;
+
+    box-shadow: inset 2px 2px 3px lightgrey,
+    inset -3px -3px 3px black;
+}
+
+button:hover {
+    box-shadow: inset -1px -1px 1px lightgrey,
+    inset 2px 2px 3px black;
+}
