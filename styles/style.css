@@ -1,13 +1,12 @@
 
 html {
-    font-family: sans-serif;
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
 body {
     display: flex;
     align-items: center;
     height: 90vh;
-
 }
 
 #calculator {
@@ -21,10 +20,10 @@ body {
 
     background-color: grey;
     background-image: linear-gradient(35deg,
-        rgb(155, 155, 145),
+        rgb(155, 155, 155),
         rgb(85, 85, 85) 35%,
         rgb(85, 85, 85) 65%,
-        rgb(145, 145, 155)
+        rgb(155, 155, 155)
         );
     border-radius: 50px;
 
@@ -38,8 +37,10 @@ body {
 
     margin: 10px 20px;
     padding: 0 15px;
-    background-color: white;
+    background-color: hsl(120, 50%, 90%);
     border-radius: 500px;
+    box-shadow: 2px 2px 5px lightgrey,
+    -2px -2px 5px rgb(55, 55, 55);
 
     font-size: 24pt;
     line-height: 0;
@@ -54,7 +55,7 @@ body {
 #numbers button {
     width: calc(33.33% - 20px);
 
-    background-color: hsl(240, 50%, 75%);
+    background-color: hsl(240, 50%, 85%);
 }
 
 #operations {
@@ -65,7 +66,7 @@ body {
 
 #operations button {
     width: 75%;
-    background-color: hsl(60, 75%, 75%);
+    background-color: hsl(360, 75%, 85%);
 }
 
 button {
@@ -75,14 +76,15 @@ button {
     border-radius: 20px;
     margin: 5px;
 
-    color: black;
+    color: rgba(55, 55, 55, 95%);
     font-size: 20pt;
+    font-family: 'Roboto Condensed', sans-serif;
 
-    box-shadow: inset 2px 2px 3px lightgrey,
-    inset -3px -3px 3px black;
+    box-shadow: inset 1px 1px 3px lightgrey,
+    inset -2px -2px 3px black;
 }
 
-button:hover {
-    box-shadow: inset -1px -1px 1px lightgrey,
-    inset 2px 2px 3px black;
+.pressed {
+    box-shadow: inset -1px -1px 2px lightgrey,
+    inset 2px 2px 2px black;
 }
