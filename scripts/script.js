@@ -28,7 +28,7 @@ function divide(a, b) {
 }
 
 let storedValue = 0;
-let displayValue = '';
+let displayValue = '0';
 
 let display = document.querySelector('#display p');
 display.textContent = displayValue;
@@ -38,14 +38,8 @@ let numbers = [...numberBin.children];
 
 function updateDisplay(e) {
     let number = this.textContent;
-    if (invalidNumericInput(number)) {
-        displayValue === '0' ? displayValue = number : displayValue += number;
-        display.textContent = displayValue;    
-    }
-}
-
-function invalidNumericInput(number) {
-    return (number === '0' && displayValue === '0') ? false : true;
+    displayValue === '0' ? displayValue = number : displayValue += number;
+    display.textContent = displayValue;    
 }
 
 numbers.forEach(number => {
