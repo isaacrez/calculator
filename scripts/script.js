@@ -38,17 +38,26 @@ let display = document.querySelector('#display p');
 display.textContent = displayValue;
 
 function extendDisplayValue(input) {
+    console.log('Initial state: ' + state);
+
     if (input === '-') {
         processNegation();
         updateDisplay();
         return;
     }
 
-    state === 'initial' ? state = 'initial' : state = 'numeric';
+    if (state === 'operator' || state === 'displayInput') {
+        state = 'displayInput';
+    } else {
+        state = 'storedInput';
+    }
+
     if (notOverflowing()) {
         updateDisplayValue(input);
     }
     updateDisplay();
+
+    console.log('Final state: ' + state);
 }
 
 function processNegation() {
@@ -94,50 +103,49 @@ numbers.forEach(number =>
     number.addEventListener('click', e => extendDisplayValue(e.target.textContent)));
 
 function processOperatorPress(newOperator) {
+    console.log('Initial state: ' + state);
 
-    if (newOperator === 'equals') {
-        if (state !== 'initial') {
-            processEquals();
-        }
+    if (newOperator === 'equals' && state === 'displayInput') {
+        storedValue = operate(operator, storedValue, displayValue);
+        displayValue = ' ';
+        updateDisplay(storedValue);
+        
+        operator = 'none';
+        state = 'output';
         return;
     }
 
     switch (state) {
         case 'initial':
+            console.log('Need numbers before operations!')
+            break;
+        
+        case 'storedInput':
+            operator = newOperator;
             storedValue = displayValue;
-            partialReset(newOperator);
-
+            displayValue = ' ';
             state = 'operator';
             break;
-            
+        
         case 'operator':
             operator = newOperator;
             break;
-
-        case 'numeric':
+        
+        case 'displayInput':
             storedValue = operate(operator, storedValue, displayValue);
-            partialReset(newOperator);
+            operator = newOperator;
+            displayValue = ' '
             updateDisplay(storedValue);
-            
+            state = 'operator';
+            break;
+        
+        case 'output':
+            operator = newOperator;
             state = 'operator';
             break;
     }
 
-    console.log(`${state}: ${storedValue} ${operator} ${displayValue}`);
-}
-
-function processEquals() { 
-    storedValue = operate(operator, storedValue, displayValue);
-    displayValue = ' ';
-    state = 'operator';
-    operator = 'none';
-    updateDisplay(storedValue);
-}
-
-function partialReset(newOperator) {
-    updateDisplay();
-    displayValue = ' ';
-    operator = newOperator;
+    console.log('Final state: ' + state);
 }
 
 let operatorButtons = [...document.querySelector('#operators').children];
