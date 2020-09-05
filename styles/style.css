@@ -15,8 +15,9 @@ body {
     width: min(90vw, 450px);
 
     display: grid;
-    grid:   'a a'
-            'b c' / 70% 30%;
+    grid:   'disp disp'
+            'num aux'
+            'num op' / 70% 30%;
 
     background-color: grey;
     background-image: linear-gradient(35deg,
@@ -32,8 +33,12 @@ body {
 }
 
 #display {
-    grid-area: a;
-    text-align: right;
+    grid-area: disp;
+
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    height: 50px;
 
     margin: 10px 20px;
     padding: 0 15px;
@@ -46,10 +51,23 @@ body {
     line-height: 0;
 }
 
+#auxillary {
+    grid-area: aux;
+
+    display: flex;
+    justify-content: space-around;
+}
+
+#auxillary button {
+    width: 45%;
+}
+
 #numbers {
+    grid-area: num;
+
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: right;
 }
 
 #numbers button {
@@ -58,15 +76,22 @@ body {
     background-color: hsl(240, 50%, 85%);
 }
 
-#operations {
+#operators {
+    grid-area: op;
+
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     align-items: center;
 }
 
-#operations button {
-    width: 75%;
+#operators button {
+    width: 40%;
     background-color: hsl(360, 75%, 85%);
+}
+
+#operators button[value='equals'] {
+    width: 85%;
+    background-color: hsl(360, 75%, 75%);
 }
 
 button {
@@ -74,6 +99,7 @@ button {
     
     border: none;
     border-radius: 20px;
+    height: 50px;
     margin: 5px;
 
     color: rgba(55, 55, 55, 95%);
