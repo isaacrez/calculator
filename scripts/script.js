@@ -95,7 +95,12 @@ function undoDisplayValue() {
 }
 
 function updateDisplay(value=displayValue) {
-    display.textContent = value;
+    if (value != 'Infinity') {
+        display.textContent = value;
+    } else {
+        fullClear();
+        display.textContent = 'Please don\'t divide by zero!';
+    }
 }
 
 let numbers = [...document.querySelector('#numbers').children];
@@ -109,7 +114,7 @@ function processOperatorPress(newOperator) {
         storedValue = operate(operator, storedValue, displayValue);
         displayValue = ' ';
         updateDisplay(storedValue);
-        
+
         operator = 'none';
         state = 'output';
         return;
@@ -164,9 +169,10 @@ function auxillaryPress(auxCall) {
 }
 
 function fullClear() {
+    displayValue = ' ';
     storedValue = null;
+    operator = 'none';
     state = 'initial';
-    partialReset('none');
     updateDisplay();
 }
 
