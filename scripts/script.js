@@ -37,10 +37,8 @@ let operator;
 let display = document.querySelector('#display p');
 display.textContent = displayValue;
 
-function extendDisplayValue(e) {
+function extendDisplayValue(input) {
     state === 'initial' ? state = 'initial' : state = 'numeric';
-
-    let input = this.textContent;
     if (notOverflowing()) {
         updateDisplayValue(input);
     }
@@ -73,12 +71,11 @@ function updateDisplay(value=displayValue) {
 }
 
 let numbers = [...document.querySelector('#numbers').children];
-numbers.forEach(number => number.addEventListener('click', extendDisplayValue));
+numbers.forEach(number => 
+    number.addEventListener('click', e => extendDisplayValue(e.target.textContent)));
 
-function processOperatorPress(e) {
+function processOperatorPress(newOperator) {
 
-    console.log(state);
-    let newOperator = this.value;
     if (newOperator === 'equals') {
         processEquals();
         return;
@@ -123,7 +120,8 @@ function partialReset(newOperator) {
 }
 
 let operatorButtons = [...document.querySelector('#operators').children];
-operatorButtons.forEach(button => button.addEventListener('click', processOperatorPress));
+operatorButtons.forEach(button => 
+    button.addEventListener('click', e => processOperatorPress(e.target.value)));
 
 function auxillaryPress(e) {
     let auxCall = this.value;
@@ -146,5 +144,42 @@ function fullClear() {
 
 let auxButtons = [...document.querySelector('#auxillary').children];
 auxButtons.forEach(button => button.addEventListener('click', auxillaryPress));
+
+function onKeydown(e) {
+    let key = e.key;
+    let code = e.keyCode;
+    processDisplayKeyInput(key);
+    processOperatorKeyInput(key);
+}
+
+function processDisplayKeyInput(key) {
+    if (isNaN(+key)) {
+        if (key === '.') {
+            extendDisplayValue(key);
+        }
+    } else {
+        extendDisplayValue(key);
+    }
+}
+
+function processOperatorKeyInput(key) {
+    if (key === 'Enter' || key === '=') {
+        processOperatorPress('equals');
+
+    } else if (key === '+') {
+        processOperatorPress('add');
+
+    } else if (key === '-') {
+        processOperatorPress('subtract');
+
+    } else if (key === '*' || key === 'x') {
+        processOperatorPress('multiply');
+
+    } else if (key === '/') {
+        processOperatorPress('divide');
+    }
+}
+
+window.addEventListener('keydown', onKeydown);
 
 module.exports = operate;
