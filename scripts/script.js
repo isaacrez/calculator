@@ -77,7 +77,9 @@ numbers.forEach(number =>
 function processOperatorPress(newOperator) {
 
     if (newOperator === 'equals') {
-        processEquals();
+        if (state !== 'initial') {
+            processEquals();
+        }
         return;
     }
 
@@ -105,7 +107,7 @@ function processOperatorPress(newOperator) {
     console.log(`${state}: ${storedValue} ${operator} ${displayValue}`);
 }
 
-function processEquals() {
+function processEquals() { 
     storedValue = operate(operator, storedValue, displayValue);
     displayValue = ' ';
     state = 'operator';
@@ -123,8 +125,7 @@ let operatorButtons = [...document.querySelector('#operators').children];
 operatorButtons.forEach(button => 
     button.addEventListener('click', e => processOperatorPress(e.target.value)));
 
-function auxillaryPress(e) {
-    let auxCall = this.value;
+function auxillaryPress(auxCall) {
     switch (auxCall) {
         case 'clear':
             fullClear();
@@ -143,11 +144,11 @@ function fullClear() {
 }
 
 let auxButtons = [...document.querySelector('#auxillary').children];
-auxButtons.forEach(button => button.addEventListener('click', auxillaryPress));
+auxButtons.forEach(button => 
+    button.addEventListener('click', e => auxillaryPress(e.target.value)));
 
 function onKeydown(e) {
     let key = e.key;
-    let code = e.keyCode;
     processDisplayKeyInput(key);
     processOperatorKeyInput(key);
 }
@@ -165,6 +166,12 @@ function processDisplayKeyInput(key) {
 function processOperatorKeyInput(key) {
     if (key === 'Enter' || key === '=') {
         processOperatorPress('equals');
+
+    } else if (key.toLowerCase() === 'c') {
+        auxillaryPress('clear');
+
+    } else if (key === 'Backspace') {
+        auxillaryPress('delete');
 
     } else if (key === '+') {
         processOperatorPress('add');
