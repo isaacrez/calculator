@@ -7,6 +7,8 @@ body {
     display: flex;
     align-items: center;
     height: 90vh;
+
+    margin: 0;
 }
 
 #calculator {
@@ -113,4 +115,32 @@ button {
 .pressed {
     box-shadow: inset -1px -1px 2px lightgrey,
     inset 2px 2px 2px black;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    align-items: center;
+
+    height: 30px;
+    width: 100%;
+    background-color: lightgrey;
+}
+
+footer * {
+    margin: 0 3px;
+}
+
+footer p {
+    justify-self: center;
+}
+
+.icon {
+    display: block;
+    height: 25px;
+    width: auto;
 }
