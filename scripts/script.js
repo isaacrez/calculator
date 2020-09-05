@@ -38,11 +38,25 @@ let display = document.querySelector('#display p');
 display.textContent = displayValue;
 
 function extendDisplayValue(input) {
+    if (input === '-') {
+        processNegation();
+        updateDisplay();
+        return;
+    }
+
     state === 'initial' ? state = 'initial' : state = 'numeric';
     if (notOverflowing()) {
         updateDisplayValue(input);
     }
     updateDisplay();
+}
+
+function processNegation() {
+    if (displayValue[0] === '-') {
+        displayValue = displayValue.slice(1);
+    } else {
+        displayValue = '-' + displayValue;
+    }
 }
 
 function notOverflowing() {
@@ -53,7 +67,12 @@ function updateDisplayValue(input) {
     if (displayValue.includes('.') && input === '.') {
         return;
     }
-    displayValue === '0' ? displayValue = input : displayValue += input;
+
+    if (displayValue === '0' || displayValue === ' ') {
+        displayValue = input;
+    } else {
+        displayValue += input;
+    }
 }
 
 function undoDisplayValue() {

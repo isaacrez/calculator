@@ -75,7 +75,11 @@ body {
 #numbers button {
     width: calc(33.33% - 20px);
 
-    background-color: hsl(240, 50%, 85%);
+    background-color: hsl(240, 30%, 65%);
+}
+
+#numbers .alt-input {
+    background-color: hsl(240, 30%, 75%);
 }
 
 #operators {
