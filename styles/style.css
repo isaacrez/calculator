@@ -112,7 +112,7 @@ button {
     inset -2px -2px 3px black;
 }
 
-.pressed {
+button:active {
     box-shadow: inset -1px -1px 2px lightgrey,
     inset 2px 2px 2px black;
 }
